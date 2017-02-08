@@ -1,0 +1,49 @@
+For a given line segment, find the component-wise vector from StartPoint to EndPoint:
+(EPx - SPx, EPy - SPy)
+
+There are two multi-variable transform functions:
+
+F1(x, y) = (0.5x + 0.5y, -0.5x + 0.5y)
+
+F2(x, y) = (0.5x - 0.5y, 0.5x + 0.5y)
+
+For each iteration, always apply F1 first, then alternate between F2 and F1
+
+Inputs are the component-wise vector from SP to EP.
+
+The result of the transform function is added to the StartPoint of the line segment, 
+yielding a new point that goes between the StartPoint and the EndPoint for the next iteration.
+
+
+For example:
+=== Iteration 0 ===
+Points0 = [(-1,0), (1,0)]
+SP = (-1, 0)
+EP = (1, 0)
+
+V = (2, 0)
+F1(2, 0) = (1, -1)
+(1, -1) + SP = (1, -1) + (-1, 0) = (0, -1) <-- new point to use in Iteration 1
+
+=== Iteration 1 ===
+Points1 = [(-1,0), (0, -1), (1,0)]
+
+SPa = (-1, 0)
+EPa = (0, -1)
+Va = (1, -1)
+F1(1, -1) = (0, -1) 
+(0, -1) + SPa = (-1, -1)  <-- new point for It. 2
+
+
+SPb = (0, -1)
+EPb = (1, 0)
+Vb = (1, 1)
+F2(1, 1) = (0, 1)
+(0, 1) + SPb = (0, 0) <-- new point for It. 2
+
+=== Iteration 2 ===
+Points2 = [(-1,0), (-1, -1), (0, -1), (0,0), (1,0)]
+. . .
+
+
+Depending on starting line segment, may need to scale points to fit within WebGL clipping space
